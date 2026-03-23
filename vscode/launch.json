@@ -1,0 +1,11 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run Guestbook",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/app.py"
+    }
+  ]
+}
