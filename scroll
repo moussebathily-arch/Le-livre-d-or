@@ -1,0 +1,4 @@
+scroll = tk.Scrollbar(root)
+scroll.pack(side=tk.RIGHT, fill=tk.Y)
+self.display.config(yscrollcommand=scroll.set)
+scroll.config(command=self.display.yview)
