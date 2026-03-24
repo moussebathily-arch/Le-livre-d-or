@@ -1,0 +1,9 @@
+translations = {
+    "fr": {"title": "Livre d'or"},
+    "en": {"title": "Guestbook"},
+    "bm": {"title": "Kibaru"}
+}
+
+lang = "fr"
+
+label.config(text=translations[lang]["title"])
