@@ -1,0 +1,1 @@
+tk.Button(root, text="Exit", command=root.destroy).pack(side="right")
