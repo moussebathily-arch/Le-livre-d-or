@@ -1,0 +1,93 @@
+import tkinter as tk
+import psycopg2
+
+class GuestbookPro:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Guestbook Pro")
+        self.root.geometry("700x500")
+
+        # Connexion DB
+        self.conn = psycopg2.connect(
+            host="localhost",
+            database="quizdb",
+            user="quiz_user",
+            password="quiz_password"
+        )
+        self.cur = self.conn.cursor()
+
+        #  HEADER
+        header = tk.Frame(root, bg="#2c3e50")
+        header.pack(fill="x")
+
+        tk.Label(header, text=" Guestbook Pro", fg="white",
+                 bg="#2c3e50", font=("Arial", 18, "bold")).pack(pady=10)
+
+        #  TOOLBAR
+        toolbar = tk.Frame(root, bg="#ecf0f1")
+        toolbar.pack(fill="x")
+
+        tk.Button(toolbar, text="Refresh", command=self.load_messages).pack(side="left", padx=10, pady=10)
+        tk.Button(toolbar, text="Clear All", command=self.clear_all, bg="red", fg="white").pack(side="left", padx=10)
+
+        #  MAIN
+        main = tk.Frame(root)
+        main.pack(fill="both", expand=True)
+
+        # Formulaire
+        tk.Label(main, text="Nom").pack()
+        self.name_entry = tk.Entry(main)
+        self.name_entry.pack()
+
+        tk.Label(main, text="Message").pack()
+        self.msg_entry = tk.Entry(main)
+        self.msg_entry.pack()
+
+        tk.Button(main, text="Ajouter", command=self.save_entry).pack(pady=10)
+
+        # Zone messages
+        self.display = tk.Text(main, height=10)
+        self.display.pack(fill="both", expand=True)
+
+        # Footer
+        footer = tk.Frame(root, bg="#bdc3c7")
+        footer.pack(fill="x")
+        tk.Label(footer, text="© 2026 Moussé Bathily", bg="#bdc3c7").pack()
+
+        self.load_messages()
+
+    def save_entry(self):
+        name = self.name_entry.get()
+        msg = self.msg_entry.get()
+
+        if not name or not msg:
+            return
+
+        self.cur.execute(
+            "INSERT INTO guestbook (name, message) VALUES (%s, %s)",
+            (name, msg)
+        )
+        self.conn.commit()
+
+        self.name_entry.delete(0, tk.END)
+        self.msg_entry.delete(0, tk.END)
+
+        self.load_messages()
+
+    def load_messages(self):
+        self.display.delete("1.0", tk.END)
+        self.cur.execute("SELECT name, message FROM guestbook ORDER BY id DESC LIMIT 10")
+
+        for name, msg in self.cur.fetchall():
+            self.display.insert(tk.END, f"{name}: {msg}\n\n")
+
+    def clear_all(self):
+        self.cur.execute("DELETE FROM guestbook")
+        self.conn.commit()
+        self.load_messages()
+
+
+# Lancer
+root = tk.Tk()
+app = GuestbookPro(root)
+root.mainloop()
