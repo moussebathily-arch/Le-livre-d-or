@@ -1,0 +1,3 @@
+tk.Label(root, text="Top").pack(pady=5)
+tk.Label(root, text="Mid").pack(pady=5)
+tk.Label(root, text="Bot").pack(pady=5)
