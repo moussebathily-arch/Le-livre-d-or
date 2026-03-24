@@ -1,0 +1,7 @@
+tk.Label(
+            root,
+            text="Welcome to Python Junior",
+            font=("Arial", 24, "bold"),
+            fg="white",
+            bg="#2c3e50"
+        ).pack(pady=30)
