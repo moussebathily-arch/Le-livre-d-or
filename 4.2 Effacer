@@ -1,0 +1,1 @@
+tk.Button(root, text="Clear", command=lambda: ent.delete(0, 'end')).pack()
