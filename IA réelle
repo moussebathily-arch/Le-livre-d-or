@@ -1,0 +1,5 @@
+def moderate_with_ai(message):
+    # simulation (remplacer par API IA)
+    if "violence" in message:
+        return False
+    return True
