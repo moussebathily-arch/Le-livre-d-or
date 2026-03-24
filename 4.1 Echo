@@ -1,0 +1,10 @@
+def echo():
+    lbl.config(text=ent.get())
+
+lbl = tk.Label(root)
+lbl.pack()
+
+ent = tk.Entry(root)
+ent.pack()
+
+tk.Button(root, text="Echo", command=echo).pack()
