@@ -1,0 +1,7 @@
+def toggle_password():
+    if entry.cget("show") == "":
+        entry.config(show="*")
+    else:
+        entry.config(show="")
+
+tk.Button(root, text="Show/Hide", command=toggle_password).pack()
