@@ -1,0 +1,6 @@
+def save_entry(self):
+    msg = self.msg_entry.get()
+
+    if not is_clean(msg):
+        messagebox.showwarning("Refusé", "Message interdit ❌")
+        return
