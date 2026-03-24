@@ -1,0 +1,14 @@
+CREATE TABLE guestbook (
+    id SERIAL PRIMARY KEY,
+    user_id UUID,
+    name TEXT,
+    message TEXT,
+    likes INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE comments (
+    id SERIAL PRIMARY KEY,
+    message_id INT,
+    content TEXT
+);
