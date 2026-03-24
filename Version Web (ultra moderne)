@@ -1,0 +1,10 @@
+// LIKE
+await supabase
+  .from("guestbook")
+  .update({ likes: message.likes + 1 })
+  .eq("id", message.id)
+
+// COMMENT
+await supabase
+  .from("comments")
+  .insert([{ message_id: id, content }])
