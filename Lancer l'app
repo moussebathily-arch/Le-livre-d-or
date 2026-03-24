@@ -1,0 +1,5 @@
+ Lancer l'app
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = WelcomeScreen(root)
+    root.mainloop()
