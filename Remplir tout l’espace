@@ -1,0 +1,1 @@
+tk.Label(root, text="Full Screen", bg="gray").pack(fill="both", expand=True)
