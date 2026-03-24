@@ -1,0 +1,16 @@
+tk.Button(root, text="Go Red", bg="black", fg="white", command=turn_red).pack()
+def toggle():
+    current = root.cget("bg")
+    root.configure(bg="red" if current != "red" else "green")
+
+tk.Button(root, text="Toggle", command=toggle).pack()
+tk.Button(root, text="Go Red", bg="black", fg="white", command=turn_red).pack()
+tk.Button(root, text="Locked", state="disabled").pack()
+def change():
+    btn.config(text="Clicked!")
+
+btn = tk.Button(root, text="Click", command=change)
+btn.pack()
+tk.Button(root, text="Stretched").pack(fill="x")
+tk.Button(root, text="Exit", command=root.destroy).pack()
+tk.Button(root, text="Log", command=lambda: print("Hello World")).pack()
