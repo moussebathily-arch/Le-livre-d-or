@@ -1,0 +1,9 @@
+def toggle_theme(self):
+    self.dark_mode = not self.dark_mode
+
+    if self.dark_mode:
+        self.theme_btn.config(text=" Mode clair")
+    else:
+        self.theme_btn.config(text=" Mode sombre")
+self.theme_btn = tk.Button(root, text=" Mode sombre", command=self.toggle_theme)
+self.theme_btn.pack(pady=10)
