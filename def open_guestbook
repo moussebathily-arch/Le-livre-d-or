@@ -1,0 +1,5 @@
+ def open_guestbook(self):
+        self.root.destroy()
+        new_root = tk.Tk()
+        GuestbookApp(new_root)
+        new_root.mainloop()
