@@ -1,0 +1,4 @@
+def say_hello():
+    print("Hello!")
+
+tk.Button(toolbar, text="Save", command=say_hello).pack(side="left")
