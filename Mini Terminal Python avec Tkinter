@@ -1,0 +1,51 @@
+import tkinter as tk
+from tkinter import scrolledtext
+import sys
+import os
+
+def run_command():
+    cmd = entry.get()
+    output_text.insert(tk.END, f">>> {cmd}\n")
+    
+    try:
+        # Commandes Python simples
+        if cmd.startswith("print("):
+            result = eval(cmd)
+            output_text.insert(tk.END, f"{result}\n")
+        # Commandes terminal équivalent
+        elif cmd == "ls":
+            result = os.listdir()
+            output_text.insert(tk.END, f"{result}\n")
+        elif cmd == "pwd":
+            result = os.getcwd()
+            output_text.insert(tk.END, f"{result}\n")
+        elif cmd.startswith("echo "):
+            output_text.insert(tk.END, cmd[5:] + "\n")
+        elif cmd == "python_version":
+            output_text.insert(tk.END, sys.version + "\n")
+        else:
+            output_text.insert(tk.END, "Commande inconnue\n")
+    except Exception as e:
+        output_text.insert(tk.END, f"Erreur: {e}\n")
+    
+    entry.delete(0, tk.END)
+
+# Fenêtre principale
+root = tk.Tk()
+root.title("Mini Terminal Python")
+root.geometry("600x400")
+
+# Zone de sortie (scrollable)
+output_text = scrolledtext.ScrolledText(root, height=20)
+output_text.pack(fill="both", expand=True)
+
+# Entrée de commande
+entry = tk.Entry(root)
+entry.pack(fill="x", pady=5)
+entry.bind("<Return>", lambda e: run_command())
+
+# Bouton Exécuter
+btn = tk.Button(root, text="Exécuter", command=run_command)
+btn.pack()
+
+root.mainloop()
