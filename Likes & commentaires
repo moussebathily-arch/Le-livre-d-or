@@ -1,0 +1,7 @@
+ALTER TABLE guestbook ADD COLUMN likes INT DEFAULT 0;
+
+CREATE TABLE comments (
+    id SERIAL PRIMARY KEY,
+    message_id INT,
+    content TEXT
+);
