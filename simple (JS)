@@ -1,0 +1,7 @@
+const translations = {
+  fr: { welcome: "Bienvenue" },
+  en: { welcome: "Welcome" },
+  bm: { welcome: "I ni ce" }
+}
+
+const t = (key) => translations[lang][key]
