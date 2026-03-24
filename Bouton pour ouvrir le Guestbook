@@ -1,0 +1,7 @@
+# Bouton pour ouvrir le Guestbook
+        tk.Button(
+            root,
+            text="Entrer dans le livre d'or",
+            command=self.open_guestbook,
+            bg="white"
+        ).pack(pady=40)
