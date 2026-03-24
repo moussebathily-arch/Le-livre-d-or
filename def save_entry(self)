@@ -1,0 +1,12 @@
+def save_entry(self):
+        name = self.name_entry.get()
+        msg = self.msg_entry.get()
+
+        if not name or not msg:
+            return
+
+        self.cur.execute(
+            "INSERT INTO guestbook (name, message) VALUES (%s, %s)",
+            (name, msg)
+        )
+        self.conn.commit()
