@@ -1,0 +1,10 @@
+ tk.Label(root, text="Message").pack()
+        self.msg_entry = tk.Entry(root)
+        self.msg_entry.pack()
+
+        tk.Button(root, text="Signer", command=self.save_entry).pack()
+
+        self.display = tk.Text(root, height=10)
+        self.display.pack()
+
+        self.load_messages()
