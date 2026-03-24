@@ -1,0 +1,7 @@
+ tk.Label(
+            root,
+            text="Presented by LeapIQ",
+            font=("Arial", 12),
+            fg="white",
+            bg="#2c3e50"
+        ).pack()
