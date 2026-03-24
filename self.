@@ -1,0 +1,14 @@
+self.name_entry.delete(0, tk.END)
+        self.msg_entry.delete(0, tk.END)
+
+        self.load_messages()
+
+    def load_messages(self):
+        self.display.delete("1.0", tk.END)
+
+        self.cur.execute(
+            "SELECT name, message FROM guestbook ORDER BY id DESC LIMIT 10"
+        )
+
+        for name, msg in self.cur.fetchall():
+            self.display.insert(tk.END, f"{name}: {msg}\n\n")
