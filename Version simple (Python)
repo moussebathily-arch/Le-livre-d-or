@@ -1,0 +1,4 @@
+bad_words = ["insulte", "spam", "hate"]
+
+def is_clean(message):
+    return not any(word in message.lower() for word in bad_words)
