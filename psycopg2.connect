@@ -1,0 +1,6 @@
+self.conn = psycopg2.connect(
+            host="localhost",
+            database="quizdb",
+            user="quiz_user",
+            password="quiz_password"
+        )
