@@ -1,0 +1,13 @@
+def count():
+    lbl.config(text=f"Total: {len(ent.get())}")
+
+lbl = tk.Label(root)
+lbl.pack()
+
+ent = tk.Entry(root)
+ent.pack()
+
+tk.Button(root, text="Count", command=count).pack()
+ent = tk.Entry(root)
+ent.insert(0, "Tapez ici...")
+ent.pack()
