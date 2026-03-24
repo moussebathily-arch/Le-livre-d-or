@@ -1,0 +1,82 @@
+import tkinter as tk
+from tkinter import scrolledtext
+import sys
+import os
+
+# Historique des commandes
+history = []
+history_index = -1
+
+def run_command():
+    global history, history_index
+    cmd = entry.get()
+    if not cmd.strip():
+        return
+
+    # Ajouter à l'historique
+    history.append(cmd)
+    history_index = len(history)
+    
+    output_text.insert(tk.END, f">>> {cmd}\n", "command")
+    
+    try:
+        # Exécuter Python eval pour expressions simples
+        try:
+            result = eval(cmd)
+            if result is not None:
+                output_text.insert(tk.END, f"{result}\n", "output")
+        except:
+            # Exécuter exec pour scripts complets
+            exec(cmd, globals())
+    except Exception as e:
+        output_text.insert(tk.END, f"Erreur: {e}\n", "error")
+    
+    entry.delete(0, tk.END)
+    output_text.see(tk.END)
+
+def navigate_history(event):
+    global history_index
+    if event.keysym == "Up":
+        if history_index > 0:
+            history_index -= 1
+            entry.delete(0, tk.END)
+            entry.insert(0, history[history_index])
+    elif event.keysym == "Down":
+        if history_index < len(history)-1:
+            history_index += 1
+            entry.delete(0, tk.END)
+            entry.insert(0, history[history_index])
+        else:
+            history_index = len(history)
+            entry.delete(0, tk.END)
+
+# Fenêtre principale
+root = tk.Tk()
+root.title("Mini Terminal Python Avancé")
+root.geometry("700x500")
+
+# Zone de sortie scrollable
+output_text = scrolledtext.ScrolledText(root, height=25, bg="black", fg="white")
+output_text.pack(fill="both", expand=True)
+
+# Styles de couleur
+output_text.tag_config("error", foreground="red")
+output_text.tag_config("output", foreground="lightgreen")
+output_text.tag_config("command", foreground="cyan")
+
+# Entrée de commande
+entry = tk.Entry(root, bg="black", fg="white", insertbackground="white")
+entry.pack(fill="x", pady=5)
+entry.bind("<Return>", lambda e: run_command())
+entry.bind("<Up>", navigate_history)
+entry.bind("<Down>", navigate_history)
+
+# Bouton Exécuter
+btn = tk.Button(root, text="Exécuter", command=run_command)
+btn.pack()
+
+# Message d'accueil
+output_text.insert(tk.END, "Bienvenue dans le Mini Terminal Python Avancé!\n", "output")
+output_text.insert(tk.END, "Commandes : ls, pwd, echo Salut, python_version ou tout code Python valide.\n\n", "output")
+
+root.mainloop()
