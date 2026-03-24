@@ -1,0 +1,6 @@
+def change_content():
+    for widget in main.winfo_children():
+        widget.destroy()
+    tk.Label(main, text="Nouvelle page").pack()
+
+tk.Button(toolbar, text="Edit", command=change_content).pack(side="left")
