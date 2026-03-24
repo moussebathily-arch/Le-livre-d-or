@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+  app:
+    build: ./app
+    container_name: guestbook_app
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./app/logs:/app/logs
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=guest_user
+      - DB_PASSWORD=guest_pass
+      - DB_NAME=guestbook
+
+  db:
+    image: postgres:15
+    container_name: guestbook_db
+    restart: always
+    environment:
+      POSTGRES_USER: guest_user
+      POSTGRES_PASSWORD: guest_pass
+      POSTGRES_DB: guestbook
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+
+volumes:
+  db_data:
