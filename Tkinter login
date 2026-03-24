@@ -1,0 +1,10 @@
+def login():
+    username = user_entry.get()
+    password = pass_entry.get()
+
+    if username == "admin" and password == "1234":
+        login_window.destroy()
+        open_guestbook()
+    else:
+        result_label.config(text="Accès refusé", fg="red")
+tk.Entry(root, show="*")
