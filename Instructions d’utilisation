@@ -1,0 +1,2 @@
+touch start_guestbook.sh
+chmod +x start_guestbook.sh
