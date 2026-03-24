@@ -1,0 +1,30 @@
+self.dark_mode = False
+tk.Button(root, text=" Mode sombre", command=self.toggle_theme).pack(pady=10)
+def toggle_theme(self):
+    self.dark_mode = not self.dark_mode
+
+    if self.dark_mode:
+        bg_color = "#2c3e50"
+        fg_color = "white"
+        entry_bg = "#34495e"
+    else:
+        bg_color = "white"
+        fg_color = "black"
+        entry_bg = "white"
+
+    # Fenêtre principale
+    self.root.configure(bg=bg_color)
+
+    # Tous les widgets
+    for widget in self.root.winfo_children():
+        try:
+            widget.configure(bg=bg_color, fg=fg_color)
+        except:
+            pass
+
+    # Champs spécifiques
+    self.name_entry.configure(bg=entry_bg, fg=fg_color, insertbackground=fg_color)
+    self.msg_entry.configure(bg=entry_bg, fg=fg_color, insertbackground=fg_color)
+
+    # Zone texte
+    self.display.configure(bg=entry_bg, fg=fg_color)
