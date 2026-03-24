@@ -1,0 +1,9 @@
+import openai
+
+def moderate_message(msg):
+    response = openai.Moderation.create(input=msg)
+    result = response["results"][0]
+
+    if result["flagged"]:
+        return False
+    return True
