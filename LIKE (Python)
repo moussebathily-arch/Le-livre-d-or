@@ -1,0 +1,13 @@
+def like_message(self, message_id):
+    self.cur.execute(
+        "UPDATE guestbook SET likes = likes + 1 WHERE id = %s",
+        (message_id,)
+    )
+    self.conn.commit()
+    self.load_messages()
+def add_comment(self, message_id, content):
+    self.cur.execute(
+        "INSERT INTO comments (message_id, content) VALUES (%s, %s)",
+        (message_id, content)
+    )
+    self.conn.commit()
