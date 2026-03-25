@@ -1,0 +1,28 @@
+import tkinter as tk
+
+root = tk.Tk()
+root.title("Grille 3x3")
+root.geometry("300x300")
+
+# Création des 9 boutons
+for row in range(3):
+    for col in range(3):
+        color = "lightgray"
+
+        # Bouton du milieu (1,1)
+        if row == 1 and col == 1:
+            color = "red"
+
+        btn = tk.Button(root, text=f"{row},{col}", bg=color)
+        btn.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
+
+# Bouton 10 (en bas, prend toute la largeur)
+bottom_btn = tk.Button(root, text="FULL WIDTH BUTTON", bg="blue", fg="white")
+bottom_btn.grid(row=3, column=0, columnspan=3, sticky="nsew", pady=10)
+
+# Rendre la grille flexible (important)
+for i in range(3):
+    root.grid_rowconfigure(i, weight=1)
+    root.grid_columnconfigure(i, weight=1)
+
+root.mainloop()
