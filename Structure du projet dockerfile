@@ -1,0 +1,6 @@
+mkdir guestbook_docker
+cd guestbook_docker
+mkdir app db
+touch docker-compose.yml Dockerfile
+touch app/app.py app/requirements.txt
+touch db/init.sql
