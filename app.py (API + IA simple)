@@ -1,0 +1,49 @@
+from flask import Flask, request, jsonify
+import psycopg2
+import os
+
+app = Flask(__name__)
+
+# Connexion DB
+conn = psycopg2.connect(
+    host="db",
+    database="guestbook",
+    user="guest_user",
+    password="guest_pass"
+)
+cur = conn.cursor()
+
+# IA simple (filtre)
+def is_clean(msg):
+    banned = ["spam", "insulte"]
+    return not any(word in msg.lower() for word in banned)
+
+@app.route("/")
+def home():
+    return "Guestbook API running "
+
+@app.route("/add", methods=["POST"])
+def add_message():
+    data = request.json
+    name = data.get("name")
+    message = data.get("message")
+
+    if not is_clean(message):
+        return jsonify({"error": "Message refusé "})
+
+    cur.execute(
+        "INSERT INTO messages (name, message) VALUES (%s, %s)",
+        (name, message)
+    )
+    conn.commit()
+
+    return jsonify({"status": "ok"})
+
+@app.route("/messages")
+def get_messages():
+    cur.execute("SELECT name, message FROM messages ORDER BY id DESC")
+    rows = cur.fetchall()
+
+    return jsonify(rows)
+
+app.run(host="0.0.0.0", port=5000)
