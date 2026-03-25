@@ -1,0 +1,11 @@
+Code Python (.py)
+        ↓
+Compilation
+        ↓
+Bytecode (.pyc)
+        ↓
+Python Virtual Machine
+        ↓
+CPU
+        ↓
+Résultat (print, GUI, API…)
