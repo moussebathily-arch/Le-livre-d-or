@@ -1,0 +1,4 @@
+cur.execute(
+    "INSERT INTO messages (name, message) VALUES (%s, %s)",
+    (name, message)
+)
