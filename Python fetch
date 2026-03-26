@@ -1,0 +1,2 @@
+cur.execute("SELECT * FROM video_games")
+print(cur.fetchall())
