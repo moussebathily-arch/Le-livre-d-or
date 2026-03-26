@@ -1,0 +1,68 @@
+class MainApp(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Application multipages avec connexion partagée")
+        self.geometry("600x400")
+
+        # ----------------- Connexion unique à PostgreSQL -----------------
+        try:
+            self.conn = psycopg2.connect(
+                host="localhost",
+                port=5432,
+                database="guestbook_db",
+                user="postgres",
+                password="postgres"
+            )
+            print("Connexion DB réussie !")
+        except Exception as e:
+            self.conn = None
+            print("Erreur connexion DB :", e)
+
+        # ----------------- Layout -----------------
+        # Frame de la barre latérale
+        sidebar = tk.Frame(self, width=150, bg="lightgrey")
+        sidebar.pack(side=tk.LEFT, fill=tk.Y)
+
+        # Frame principal pour afficher les pages
+        container = tk.Frame(self)
+        container.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+        # ----------------- Pages -----------------
+        self.pages = {}
+        for PageClass in (DashboardPage, QuizPage, AdminPage):
+            page_name = PageClass.__name__
+            frame = PageClass(container, self.conn)
+            self.pages[page_name] = frame
+            frame.grid(row=0, column=0, sticky="nsew")
+
+        # ----------------- Boutons de navigation -----------------
+        tk.Button(sidebar, text="Dashboard",
+                  command=lambda: self.show_frame("DashboardPage")).pack(fill=tk.X, pady=5)
+        tk.Button(sidebar, text="Quiz",
+                  command=lambda: self.show_frame("QuizPage")).pack(fill=tk.X, pady=5)
+        tk.Button(sidebar, text="Admin",
+                  command=lambda: self.show_frame("AdminPage")).pack(fill=tk.X, pady=5)
+
+        # Affiche la page Dashboard par défaut
+        self.show_frame("DashboardPage")
+
+        # ----------------- Fermeture propre -----------------
+        self.protocol("WM_DELETE_WINDOW", self.on_closing)
+
+    def show_frame(self, page_name):
+        frame = self.pages[page_name]
+        frame.tkraise()
+        # Optionnel : rafraîchir stats si la page a refresh_stats
+        if hasattr(frame, "refresh_stats"):
+            frame.refresh_stats()
+
+    def on_closing(self):
+        if messagebox.askokcancel("Quitter", "Voulez-vous vraiment fermer l'application ?"):
+            try:
+                if self.conn:
+                    self.conn.close()
+                    print("Connexion DB fermée.")
+            except Exception as e:
+                print("Erreur fermeture DB :", e)
+            finally:
+                self.destroy()
