@@ -1,0 +1,14 @@
+@app.route("/admin/top")
+@login_required
+def top_messages():
+    conn = get_connection()
+    cur = conn.cursor()
+
+    cur.execute("""
+        SELECT name, message, likes
+        FROM messages
+        ORDER BY likes DESC
+        LIMIT 5
+    """)
+
+    return jsonify(cur.fetchall())
