@@ -1,0 +1,5 @@
+server {
+    listen 80;
+    server_name www.livredor.ai;
+    return 301 https://livredor.ai$request_uri;
+}
