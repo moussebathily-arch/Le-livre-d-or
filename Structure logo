@@ -1,1 +1,6 @@
-
+livredor-project/
+├── backend/
+├── frontend/
+├── assets/
+│   └── logo.png   
+├── README.md
