@@ -1,0 +1,17 @@
+# Lister les conteneurs pour trouver le nom ou l'ID de ton conteneur PostgreSQL
+docker ps
+
+# Entrer dans le conteneur interactif
+docker exec -it <nom_du_conteneur> bash
+
+# Lancer psql pour accéder à la base
+psql -U postgres -d guestbook_db
+
+# Vérifier combien de questions existent
+SELECT COUNT(*) FROM questions;
+
+# Quitter psql
+\q
+
+# Sortir du conteneur
+exit
