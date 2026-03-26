@@ -1,0 +1,9 @@
+Utilisateur 
+    ↓
+livredor.ai (HTTPS )
+    ↓
+Nginx
+    ↓
+Flask API (Docker)
+    ↓
+PostgreSQL
