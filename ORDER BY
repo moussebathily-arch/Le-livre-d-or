@@ -1,0 +1,1 @@
+cur.execute("SELECT * FROM video_games ORDER BY score DESC")
