@@ -1,0 +1,20 @@
+@app.route("/login", methods=["POST"])
+def login():
+    data = request.json
+    username = data["username"]
+    password = hashlib.sha256(data["password"].encode()).hexdigest()
+
+    conn = get_connection()
+    cur = conn.cursor()
+
+    cur.execute(
+        "SELECT id FROM users WHERE username=%s AND password=%s",
+        (username, password)
+    )
+    user = cur.fetchone()
+
+    if user:
+        login_user(User(user[0]))
+        return jsonify({"status": "logged in"})
+
+    return jsonify({"error": "invalid credentials"}), 401
