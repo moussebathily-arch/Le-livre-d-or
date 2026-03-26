@@ -1,0 +1,31 @@
+import psycopg2
+
+conn = psycopg2.connect(
+    host="localhost",
+    database="postgres",
+    user="postgres",
+    password="1234"
+)
+
+cur = conn.cursor()
+
+# Création table + insertion
+cur.execute("""
+CREATE TABLE IF NOT EXISTS famous_programmers (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50),
+    language VARCHAR(50)
+);
+
+INSERT INTO famous_programmers (name, language) VALUES
+('Linus Torvalds', 'C'),
+('Guido van Rossum', 'Python'),
+('Dennis Ritchie', 'C');
+""")
+
+conn.commit()
+
+print("✅ Table créée + données insérées")
+
+cur.close()
+conn.close()
