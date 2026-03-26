@@ -1,0 +1,6 @@
+cur.execute("""
+SELECT m.id, m.name, m.message, c.content
+FROM messages m
+LEFT JOIN comments c ON m.id = c.message_id
+ORDER BY m.id DESC
+""")
