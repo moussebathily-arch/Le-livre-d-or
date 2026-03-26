@@ -1,0 +1,5 @@
+cur.execute("""
+SELECT id, name, message, likes
+FROM messages
+ORDER BY likes DESC
+""")
