@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+
+  db:
+    image: postgres:15
+    container_name: livredor_db
+    restart: always
+    environment:
+      POSTGRES_DB: guestbook
+      POSTGRES_USER: guest_user
+      POSTGRES_PASSWORD: guest_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  app:
+    build: ./backend
+    container_name: livredor_app
+    depends_on:
+      - db
+    ports:
+      - "5000:5000"
+    environment:
+      DB_HOST: db
+      DB_NAME: guestbook
+      DB_USER: guest_user
+      DB_PASSWORD: guest_pass
+
+volumes:
+  pgdata:
