@@ -1,0 +1,4 @@
+# Création de la page dans le main container
+self.pages["DashboardFrame"] = DashboardFrame(container, self.conn)
+self.pages["DashboardFrame"].grid(row=0, column=0, sticky="nsew")
+self.show_frame("DashboardFrame")
