@@ -1,0 +1,17 @@
+from openai import OpenAI
+
+client = OpenAI(api_key="TON_API_KEY")
+
+def moderate_message(msg):
+    try:
+        response = client.moderations.create(
+            model="omni-moderation-latest",
+            input=msg
+        )
+
+        result = response.results[0]
+        return not result.flagged
+
+    except Exception as e:
+        print("Erreur IA:", e)
+        return False
