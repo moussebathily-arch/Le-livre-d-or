@@ -1,0 +1,3 @@
+@app.route("/logo")
+def logo():
+    return send_from_directory("assets", "logo.png")
