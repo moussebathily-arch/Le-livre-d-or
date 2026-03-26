@@ -1,0 +1,2 @@
+docker exec -it <nom_conteneur> psql -U postgres -d guestbook_db
+SELECT * FROM guestbook;
