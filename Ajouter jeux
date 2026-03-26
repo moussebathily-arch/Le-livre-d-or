@@ -1,0 +1,4 @@
+INSERT INTO video_games (title, score)
+VALUES 
+('Tetris', 90),
+('Cyberpunk', 85);
