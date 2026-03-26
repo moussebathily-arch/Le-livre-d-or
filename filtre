@@ -1,0 +1,4 @@
+cur.execute(
+    "SELECT * FROM messages WHERE name = %s",
+    (name,)
+)
