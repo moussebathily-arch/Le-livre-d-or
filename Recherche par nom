@@ -1,0 +1,4 @@
+cur.execute(
+    "SELECT name, language FROM famous_programmers WHERE name = %s",
+    (search_value,)
+)
