@@ -1,0 +1,13 @@
+def on_closing(self):
+    # Optionnel : demander confirmation avant de quitter
+    if messagebox.askokcancel("Quitter", "Voulez-vous vraiment fermer l'application ?"):
+        try:
+            if self.cur:
+                self.cur.close()
+            if self.conn:
+                self.conn.close()
+            print("Au revoir, bibliothécaire ! La connexion est fermée.")
+        except Exception as e:
+            print("Erreur lors de la fermeture :", e)
+        finally:
+            self.root.destroy()  # Ferme la fenêtre Tkinter
