@@ -1,0 +1,2 @@
+if self.conn is None:
+    return
