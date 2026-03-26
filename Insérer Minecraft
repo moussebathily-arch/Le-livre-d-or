@@ -1,0 +1,2 @@
+INSERT INTO video_games (title, score)
+VALUES ('Minecraft', 95);
