@@ -1,0 +1,20 @@
+@app.route("/add", methods=["POST"])
+@login_required
+def add_message():
+    data = request.json
+    name = data.get("name")
+    message = data.get("message")
+
+    if not moderate_message(message):
+        return jsonify({"error": "Message bloqué par IA je"})
+
+    conn = get_connection()
+    cur = conn.cursor()
+
+    cur.execute(
+        "INSERT INTO messages (name, message) VALUES (%s, %s)",
+        (name, message)
+    )
+    conn.commit()
+
+    return jsonify({"status": "message ajouté"})
