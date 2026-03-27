@@ -1,0 +1,11 @@
+def on_closing(self):
+    print(" Fermeture application...")
+
+    if self.conn:
+        try:
+            self.conn.close()
+            print(" Connexion DB fermée proprement")
+        except Exception as e:
+            print(f"Erreur fermeture DB: {e}")
+
+    self.root.destroy()
