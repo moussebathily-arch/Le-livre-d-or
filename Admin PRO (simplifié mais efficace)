@@ -1,0 +1,32 @@
+class AdminFrame(tk.Frame):
+    def __init__(self, parent, conn):
+        super().__init__(parent, bg="white")
+        self.conn = conn
+
+        tk.Label(self, text="⚙️ Admin Panel", font=("Arial", 24, "bold"), bg="white").pack(pady=20)
+
+        self.q = tk.Entry(self, width=50)
+        self.q.pack(pady=5)
+
+        self.correct = tk.Entry(self, width=5)
+        self.correct.pack(pady=5)
+
+        tk.Button(self, text="Save", bg="green", fg="white",
+                  command=self.save).pack(pady=10)
+
+        self.status = tk.Label(self, text="", bg="white")
+        self.status.pack()
+
+    def save(self):
+        try:
+            cur = self.conn.cursor()
+            cur.execute("""
+                INSERT INTO questions (category_id, question_text, correct_answer, option_a, option_b, option_c, option_d)
+                VALUES (1, %s, %s, 'A1','B1','C1','D1');
+            """, (self.q.get(), self.correct.get()))
+
+            self.conn.commit()
+            self.status.config(text="Saved ✅", fg="green")
+        except Exception as e:
+            self.conn.rollback()
+            self.status.config(text=str(e), fg="red")
