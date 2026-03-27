@@ -1,0 +1,42 @@
+class DashboardFrame(tk.Frame):
+    def __init__(self, parent, conn):
+        super().__init__(parent, bg="white")
+        self.conn = conn
+
+        tk.Label(
+            self,
+            text=" Dashboard",
+            font=("Arial", 26, "bold"),
+            bg="white"
+        ).pack(pady=30)
+
+        self.stats = tk.Label(
+            self,
+            text="Loading...",
+            font=("Arial", 20),
+            bg="#dfe6e9",
+            width=25,
+            pady=20
+        )
+        self.stats.pack(pady=20)
+
+        tk.Button(
+            self,
+            text=" Refresh",
+            bg="#0984e3",
+            fg="white",
+            command=self.refresh
+        ).pack()
+
+        self.refresh()
+
+    def refresh(self):
+        if not self.conn:
+            self.stats.config(text="DB Offline ")
+            return
+
+        cur = self.conn.cursor()
+        cur.execute("SELECT COUNT(*) FROM questions;")
+        count = cur.fetchone()[0]
+        self.stats.config(text=f"Total Questions: {count}")
+        cur.close()
