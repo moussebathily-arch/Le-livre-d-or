@@ -1,0 +1,3 @@
+def keyPressEvent(self, event):
+    if event.state == 4 and event.keysym == 'q':  # Ctrl + Q
+        self.on_closing()
