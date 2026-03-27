@@ -1,0 +1,1 @@
+self.q_label.config(fg="green")
