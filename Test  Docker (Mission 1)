@@ -1,0 +1,2 @@
+docker exec -it livredor_db psql -U guest_user -d guestbook
+SELECT * FROM questions ORDER BY RANDOM() LIMIT 1;
