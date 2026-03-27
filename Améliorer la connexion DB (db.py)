@@ -1,0 +1,22 @@
+def connect(self):
+    try:
+        self.conn = psycopg2.connect(
+            host=self.host,
+            port=self.port,
+            database=self.database,
+            user=self.user,
+            password=self.password,
+            connect_timeout=5
+        )
+        self.cursor = self.conn.cursor()
+        print("✅ Connected to PostgreSQL")
+        return True
+
+    except psycopg2.OperationalError as e:
+        if "Connection refused" in str(e):
+            print("❌ Docker n'est pas lancé → docker compose up -d")
+        elif "authentication failed" in str(e):
+            print("❌ Mauvais identifiants DB")
+        else:
+            print(f"❌ Erreur DB: {e}")
+        return False
